@@ -21,10 +21,10 @@ export function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">Home</Link>
-          <Link href="/catalog" className="text-sm font-medium hover:text-primary transition-colors">Catalog</Link>
-          <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">About Us</Link>
-          <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors">Contact</Link>
+          <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">Inicio</Link>
+          <Link href="/catalog" className="text-sm font-medium hover:text-primary transition-colors">Catálogo</Link>
+          <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">Nosotros</Link>
+          <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors">Contacto</Link>
         </nav>
 
         {/* Actions */}
@@ -57,13 +57,13 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <nav className="flex flex-col space-y-4 mt-8">
-                <Link href="/" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Home</Link>
-                <Link href="/catalog" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Catalog</Link>
-                <Link href="/about" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">About Us</Link>
-                <Link href="/contact" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Contact</Link>
+                <Link href="/" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Inicio</Link>
+                <Link href="/catalog" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Catálogo</Link>
+                <Link href="/about" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Nosotros</Link>
+                <Link href="/contact" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Contacto</Link>
                 <hr />
-                <Link href="/profile" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">My Profile</Link>
-                <Link href="/login" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary text-primary">Login / Register</Link>
+                <Link href="/profile" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Mi Perfil</Link>
+                <Link href="/login" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary text-primary">Iniciar Sesión / Registro</Link>
               </nav>
             </SheetContent>
           </Sheet>

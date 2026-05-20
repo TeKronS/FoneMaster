@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { STORE_CONFIG, PRODUCTS } from "@/lib/config";
-import { ChevronRight, ShieldCheck, Truck, Headphones, Smartphone } from "lucide-react";
+import { ChevronRight, ShieldCheck, Truck, Headphones, Smartphone, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -29,12 +29,12 @@ export default function Home() {
                   />
                 </div>
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-4">
-                  <span className="text-accent font-bold uppercase tracking-wider mb-2">Featured Offer</span>
+                  <span className="text-accent font-bold uppercase tracking-wider mb-2">Oferta Destacada</span>
                   <h1 className="text-4xl md:text-6xl font-bold mb-4 font-headline">{product.name}</h1>
                   <p className="max-w-xl text-lg mb-8 opacity-90">{product.description}</p>
                   <Link href={`/catalog/${product.id}`}>
                     <Button size="lg" className="bg-accent hover:bg-accent/90 text-white border-none px-8 py-6 rounded-full text-lg shadow-lg transform transition hover:scale-105">
-                      Buy Now for ${product.price}
+                      Comprar ahora por ${product.price}
                     </Button>
                   </Link>
                 </div>
@@ -53,23 +53,23 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white p-8 rounded-2xl shadow-sm border">
           <div className="flex flex-col items-center text-center space-y-2">
             <Truck className="h-8 w-8 text-primary" />
-            <h3 className="font-semibold">Free Shipping</h3>
-            <p className="text-xs text-muted-foreground">On all orders over $500</p>
+            <h3 className="font-semibold">Envío Gratis</h3>
+            <p className="text-xs text-muted-foreground">En todos los pedidos superiores a $500</p>
           </div>
           <div className="flex flex-col items-center text-center space-y-2 border-l md:border-l">
             <ShieldCheck className="h-8 w-8 text-primary" />
-            <h3 className="font-semibold">Secure Payment</h3>
-            <p className="text-xs text-muted-foreground">100% secure checkout</p>
+            <h3 className="font-semibold">Pago Seguro</h3>
+            <p className="text-xs text-muted-foreground">Checkout 100% seguro</p>
           </div>
           <div className="flex flex-col items-center text-center space-y-2 border-l">
             <Headphones className="h-8 w-8 text-primary" />
-            <h3 className="font-semibold">24/7 Support</h3>
-            <p className="text-xs text-muted-foreground">Expert help anytime</p>
+            <h3 className="font-semibold">Soporte 24/7</h3>
+            <p className="text-xs text-muted-foreground">Ayuda experta en cualquier momento</p>
           </div>
           <div className="flex flex-col items-center text-center space-y-2 border-l">
             <Smartphone className="h-8 w-8 text-primary" />
-            <h3 className="font-semibold">Latest Tech</h3>
-            <p className="text-xs text-muted-foreground">New releases weekly</p>
+            <h3 className="font-semibold">Última Tecnología</h3>
+            <p className="text-xs text-muted-foreground">Nuevos lanzamientos semanales</p>
           </div>
         </div>
       </section>
@@ -77,9 +77,9 @@ export default function Home() {
       {/* Featured Products Grid */}
       <section className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold font-headline">New Arrivals</h2>
+          <h2 className="text-3xl font-bold font-headline">Recién Llegados</h2>
           <Link href="/catalog" className="text-primary flex items-center hover:underline font-medium">
-            View All <ChevronRight className="h-4 w-4 ml-1" />
+            Ver Todo <ChevronRight className="h-4 w-4 ml-1" />
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -107,7 +107,7 @@ export default function Home() {
                     <span className="text-2xl font-bold text-primary">${product.price}</span>
                     <Link href={`/catalog/${product.id}`}>
                       <Button variant="outline" size="sm" className="rounded-full border-primary text-primary hover:bg-primary hover:text-white transition-colors">
-                        Details
+                        Detalles
                       </Button>
                     </Link>
                   </div>
@@ -122,13 +122,13 @@ export default function Home() {
       <section className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="md:w-1/2 space-y-6">
-            <h2 className="text-4xl font-bold font-headline leading-tight">Our Mission is to connect you with the future.</h2>
+            <h2 className="text-4xl font-bold font-headline leading-tight">Nuestra Misión es conectarte con el futuro.</h2>
             <p className="text-lg opacity-90 leading-relaxed">
               {STORE_CONFIG.about.mission}
             </p>
             <Link href="/about">
               <Button className="bg-white text-primary hover:bg-white/90 rounded-full px-8 py-6 text-lg font-semibold mt-4">
-                Learn Our Story
+                Conoce Nuestra Historia
               </Button>
             </Link>
           </div>
@@ -149,8 +149,8 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div>
-              <h2 className="text-3xl font-bold font-headline mb-4">Visit Our Store</h2>
-              <p className="text-muted-foreground mb-6">Experience the latest technology firsthand at our flagship location. Our experts are ready to assist you.</p>
+              <h2 className="text-3xl font-bold font-headline mb-4">Visita Nuestra Tienda</h2>
+              <p className="text-muted-foreground mb-6">Experimenta lo último en tecnología de primera mano en nuestra ubicación principal. Nuestros expertos están listos para ayudarte.</p>
             </div>
             
             <div className="space-y-4">
@@ -159,7 +159,7 @@ export default function Home() {
                   <Smartphone className="h-6 w-6 text-accent" />
                 </div>
                 <div>
-                  <h4 className="font-bold">Contact Us</h4>
+                  <h4 className="font-bold">Contáctanos</h4>
                   <p className="text-sm text-muted-foreground">{STORE_CONFIG.contact.phone}</p>
                 </div>
               </div>
@@ -168,7 +168,7 @@ export default function Home() {
                   <ShieldCheck className="h-6 w-6 text-accent" />
                 </div>
                 <div>
-                  <h4 className="font-bold">Address</h4>
+                  <h4 className="font-bold">Dirección</h4>
                   <p className="text-sm text-muted-foreground">{STORE_CONFIG.contact.address}</p>
                 </div>
               </div>
@@ -176,7 +176,7 @@ export default function Home() {
 
             <Link href="/contact" className="inline-block w-full">
               <Button size="lg" variant="outline" className="w-full md:w-auto px-12 py-6 rounded-full font-bold">
-                Get Directions
+                Cómo llegar
               </Button>
             </Link>
           </div>

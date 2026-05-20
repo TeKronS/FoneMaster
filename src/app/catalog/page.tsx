@@ -37,7 +37,7 @@ export default function Catalog() {
     }).sort((a, b) => {
       if (sortOrder === "price-low") return a.price - b.price;
       if (sortOrder === "price-high") return b.price - a.price;
-      return 0; // default (newest/featured logic could go here)
+      return 0;
     });
   }, [searchTerm, brandFilter, sortOrder]);
 
@@ -45,8 +45,8 @@ export default function Catalog() {
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-col space-y-8">
         <div>
-          <h1 className="text-4xl font-bold font-headline mb-2 text-primary">Product Catalog</h1>
-          <p className="text-muted-foreground">Find the perfect device for your lifestyle.</p>
+          <h1 className="text-4xl font-bold font-headline mb-2 text-primary">Catálogo de Productos</h1>
+          <p className="text-muted-foreground">Encuentra el dispositivo perfecto para tu estilo de vida.</p>
         </div>
 
         {/* Search & Filters */}
@@ -54,7 +54,7 @@ export default function Catalog() {
           <div className="relative flex-grow w-full">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search products..."
+              placeholder="Buscar productos..."
               className="pl-10 h-12 bg-white rounded-xl"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -65,17 +65,17 @@ export default function Catalog() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="h-12 bg-white rounded-xl min-w-[120px] flex justify-between">
-                  <span className="capitalize">{brandFilter === "all" ? "All Brands" : brandFilter}</span>
+                  <span className="capitalize">{brandFilter === "all" ? "Todas las Marcas" : brandFilter}</span>
                   <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Filter by Brand</DropdownMenuLabel>
+                <DropdownMenuLabel>Filtrar por Marca</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup value={brandFilter} onValueChange={setBrandFilter}>
                   {brands.map((brand) => (
                     <DropdownMenuRadioItem key={brand} value={brand} className="capitalize">
-                      {brand}
+                      {brand === "all" ? "Todas las Marcas" : brand}
                     </DropdownMenuRadioItem>
                   ))}
                 </DropdownMenuRadioGroup>
@@ -85,17 +85,19 @@ export default function Catalog() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="h-12 bg-white rounded-xl min-w-[140px] flex justify-between">
-                  <span>{sortOrder === "newest" ? "Newest" : sortOrder === "price-low" ? "Price: Low to High" : "Price: High to Low"}</span>
+                  <span>
+                    {sortOrder === "newest" ? "Novedades" : sortOrder === "price-low" ? "Precio: Menor a Mayor" : "Precio: Mayor a Menor"}
+                  </span>
                   <SlidersHorizontal className="ml-2 h-4 w-4 opacity-50" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Sort By</DropdownMenuLabel>
+                <DropdownMenuLabel>Ordenar Por</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup value={sortOrder} onValueChange={setSortOrder}>
-                  <DropdownMenuRadioItem value="newest">Newest First</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="price-low">Price: Low to High</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="price-high">Price: High to Low</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="newest">Más recientes</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="price-low">Precio: Menor a Mayor</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="price-high">Precio: Mayor a Menor</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -104,7 +106,7 @@ export default function Catalog() {
 
         {/* Results Info */}
         <p className="text-sm text-muted-foreground">
-          Showing {filteredProducts.length} results
+          Mostrando {filteredProducts.length} resultados
         </p>
 
         {/* Product Grid */}
@@ -122,7 +124,7 @@ export default function Catalog() {
                   />
                   {product.stock < 10 && (
                     <div className="absolute bottom-2 right-2 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
-                      LOW STOCK: {product.stock}
+                      STOCK BAJO: {product.stock}
                     </div>
                   )}
                 </div>
@@ -135,7 +137,7 @@ export default function Catalog() {
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-xl font-bold text-primary">${product.price}</span>
                   <Button size="sm" className="bg-accent hover:bg-accent/90 text-white rounded-lg">
-                    Add to Cart
+                    Añadir
                   </Button>
                 </div>
               </CardContent>
@@ -146,10 +148,10 @@ export default function Catalog() {
         {filteredProducts.length === 0 && (
           <div className="text-center py-20 bg-white rounded-2xl border border-dashed">
             <Filter className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-20" />
-            <h3 className="text-xl font-semibold mb-2">No products found</h3>
-            <p className="text-muted-foreground">Try adjusting your search or filters to find what you're looking for.</p>
+            <h3 className="text-xl font-semibold mb-2">No se encontraron productos</h3>
+            <p className="text-muted-foreground">Intenta ajustar tu búsqueda o filtros para encontrar lo que buscas.</p>
             <Button variant="link" onClick={() => { setSearchTerm(""); setBrandFilter("all"); }} className="mt-4">
-              Clear all filters
+              Limpiar todos los filtros
             </Button>
           </div>
         )}

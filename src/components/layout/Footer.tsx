@@ -22,18 +22,18 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Quick Links</h4>
+            <h4 className="font-semibold text-foreground">Enlaces Rápidos</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/catalog" className="hover:text-primary transition-colors">Catalog</Link></li>
-              <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link href="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
-              <li><Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link></li>
+              <li><Link href="/about" className="hover:text-primary transition-colors">Sobre Nosotros</Link></li>
+              <li><Link href="/contact" className="hover:text-primary transition-colors">Contacto</Link></li>
+              <li><Link href="/privacy" className="hover:text-primary transition-colors">Política de Privacidad</Link></li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Contact Us</h4>
+            <h4 className="font-semibold text-foreground">Contáctanos</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start space-x-3">
                 <MapPin className="h-4 w-4 text-accent mt-0.5 shrink-0" />
@@ -52,10 +52,10 @@ export function Footer() {
 
           {/* Working Hours */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Business Hours</h4>
+            <h4 className="font-semibold text-foreground">Horario de Atención</h4>
             <p className="text-sm text-muted-foreground">{STORE_CONFIG.contact.workingHours}</p>
             <p className="text-xs text-muted-foreground mt-4">
-              © {new Date().getFullYear()} {STORE_CONFIG.name}. All rights reserved.
+              © {new Date().getFullYear()} {STORE_CONFIG.name}. Todos los derechos reservados.
             </p>
           </div>
         </div>
