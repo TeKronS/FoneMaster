@@ -1,3 +1,16 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "phone-nebula",
+      "description": "Nebula X1 Smartphone",
+      "imageUrl": "https://picsum.photos/seed/phone1/600/600",
+      "imageHint": "phone smartphone"
+    },
+    {
+      "id": "banner-main",
+      "description": "Featured product banner",
+      "imageUrl": "https://picsum.photos/seed/phone1-banner/1200/400",
+      "imageHint": "tech banner"
+    }
+  ]
 }
