@@ -1,7 +1,8 @@
+
 "use client"
 
-import { useState, useMemo } from "react";
-import { PRODUCTS, Product } from "@/lib/config";
+import { useState, useMemo, useEffect } from "react";
+import { PRODUCTS } from "@/lib/config";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -35,13 +36,153 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+interface FilterContentProps {
+  brands: string[];
+  rams: string[];
+  networks: string[];
+  priceRange: number[];
+  setPriceRange: (value: number[]) => void;
+  selectedBrands: string[];
+  selectedRam: string[];
+  selectedNetwork: string[];
+  toggleFilter: (setter: React.Dispatch<React.SetStateAction<string[]>>, value: string) => void;
+  setSelectedBrands: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedRam: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedNetwork: React.Dispatch<React.SetStateAction<string[]>>;
+  clearFilters: () => void;
+  prefix: string;
+}
+
+function FilterContent({
+  brands,
+  rams,
+  networks,
+  priceRange,
+  setPriceRange,
+  selectedBrands,
+  selectedRam,
+  selectedNetwork,
+  toggleFilter,
+  setSelectedBrands,
+  setSelectedRam,
+  setSelectedNetwork,
+  clearFilters,
+  prefix
+}: FilterContentProps) {
+  return (
+    <div className="space-y-6">
+      <div>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground">Precio</h3>
+          <span className="text-xs font-bold text-primary">${priceRange[0]} - ${priceRange[1]}</span>
+        </div>
+        <Slider
+          defaultValue={[0, 1500]}
+          max={1500}
+          step={50}
+          value={priceRange}
+          onValueChange={setPriceRange}
+          className="mt-6"
+        />
+      </div>
+
+      <Accordion type="multiple" defaultValue={["item-brands", "item-specs"]} className="w-full">
+        <AccordionItem value="item-brands" className="border-none">
+          <AccordionTrigger className="hover:no-underline py-4">
+            <span className="font-bold text-sm uppercase tracking-wider text-muted-foreground flex items-center">
+              <Smartphone className="h-4 w-4 mr-2" /> Marcas
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="space-y-3 pt-2">
+              {brands.map((brand) => (
+                <div key={brand} className="flex items-center space-x-2">
+                  <Checkbox 
+                    id={`${prefix}-brand-${brand}`} 
+                    checked={selectedBrands.includes(brand)}
+                    onCheckedChange={() => toggleFilter(setSelectedBrands, brand)}
+                  />
+                  <Label htmlFor={`${prefix}-brand-${brand}`} className="text-sm font-medium leading-none cursor-pointer">
+                    {brand}
+                  </Label>
+                </div>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-specs" className="border-none">
+          <AccordionTrigger className="hover:no-underline py-4">
+            <span className="font-bold text-sm uppercase tracking-wider text-muted-foreground flex items-center">
+              <Cpu className="h-4 w-4 mr-2" /> RAM
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="space-y-3 pt-2">
+              {rams.map((ram) => (
+                <div key={ram} className="flex items-center space-x-2">
+                  <Checkbox 
+                    id={`${prefix}-ram-${ram}`} 
+                    checked={selectedRam.includes(ram)}
+                    onCheckedChange={() => toggleFilter(setSelectedRam, ram)}
+                  />
+                  <Label htmlFor={`${prefix}-ram-${ram}`} className="text-sm font-medium leading-none cursor-pointer">
+                    {ram}
+                  </Label>
+                </div>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-network" className="border-none">
+          <AccordionTrigger className="hover:no-underline py-4">
+            <span className="font-bold text-sm uppercase tracking-wider text-muted-foreground flex items-center">
+              <Wifi className="h-4 w-4 mr-2" /> Red
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="space-y-3 pt-2">
+              {networks.map((net) => (
+                <div key={net} className="flex items-center space-x-2">
+                  <Checkbox 
+                    id={`${prefix}-net-${net}`} 
+                    checked={selectedNetwork.includes(net)}
+                    onCheckedChange={() => toggleFilter(setSelectedNetwork, net)}
+                  />
+                  <Label htmlFor={`${prefix}-net-${net}`} className="text-sm font-medium leading-none cursor-pointer">
+                    {net}
+                  </Label>
+                </div>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+      <Button 
+        variant="outline" 
+        className="w-full text-xs font-bold uppercase tracking-widest mt-4"
+        onClick={clearFilters}
+      >
+        Limpiar Filtros
+      </Button>
+    </div>
+  );
+}
+
 export default function Catalog() {
+  const [mounted, setMounted] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [selectedRam, setSelectedRam] = useState<string[]>([]);
   const [selectedNetwork, setSelectedNetwork] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState([0, 1500]);
   const [sortOrder, setSortOrder] = useState("newest");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const brands = useMemo(() => Array.from(new Set(PRODUCTS.map(p => p.brand))), []);
   const rams = useMemo(() => Array.from(new Set(PRODUCTS.map(p => p.specs.ram))).sort(), []);
@@ -76,106 +217,39 @@ export default function Catalog() {
     setPriceRange([0, 1500]);
   };
 
-  const FilterContent = () => (
-    <div className="space-y-6">
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground">Precio</h3>
-          <span className="text-xs font-bold text-primary">${priceRange[0]} - ${priceRange[1]}</span>
+  if (!mounted) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <div className="animate-pulse space-y-8">
+          <div className="h-12 w-1/3 bg-muted rounded-xl" />
+          <div className="flex gap-8">
+            <div className="hidden lg:block w-72 h-[600px] bg-muted rounded-2xl" />
+            <div className="flex-grow grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map(i => (
+                <div key={i} className="aspect-square bg-muted rounded-2xl" />
+              ))}
+            </div>
+          </div>
         </div>
-        <Slider
-          defaultValue={[0, 1500]}
-          max={1500}
-          step={50}
-          value={priceRange}
-          onValueChange={setPriceRange}
-          className="mt-6"
-        />
       </div>
+    );
+  }
 
-      <Accordion type="multiple" defaultValue={["item-brands", "item-specs"]} className="w-full">
-        <AccordionItem value="item-brands" className="border-none">
-          <AccordionTrigger className="hover:no-underline py-4">
-            <span className="font-bold text-sm uppercase tracking-wider text-muted-foreground flex items-center">
-              <Smartphone className="h-4 w-4 mr-2" /> Marcas
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-3 pt-2">
-              {brands.map((brand) => (
-                <div key={brand} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`brand-${brand}`} 
-                    checked={selectedBrands.includes(brand)}
-                    onCheckedChange={() => toggleFilter(setSelectedBrands, brand)}
-                  />
-                  <Label htmlFor={`brand-${brand}`} className="text-sm font-medium leading-none cursor-pointer">
-                    {brand}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-specs" className="border-none">
-          <AccordionTrigger className="hover:no-underline py-4">
-            <span className="font-bold text-sm uppercase tracking-wider text-muted-foreground flex items-center">
-              <Cpu className="h-4 w-4 mr-2" /> RAM
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-3 pt-2">
-              {rams.map((ram) => (
-                <div key={ram} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`ram-${ram}`} 
-                    checked={selectedRam.includes(ram)}
-                    onCheckedChange={() => toggleFilter(setSelectedRam, ram)}
-                  />
-                  <Label htmlFor={`ram-${ram}`} className="text-sm font-medium leading-none cursor-pointer">
-                    {ram}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-network" className="border-none">
-          <AccordionTrigger className="hover:no-underline py-4">
-            <span className="font-bold text-sm uppercase tracking-wider text-muted-foreground flex items-center">
-              <Wifi className="h-4 w-4 mr-2" /> Red
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-3 pt-2">
-              {networks.map((net) => (
-                <div key={net} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`net-${net}`} 
-                    checked={selectedNetwork.includes(net)}
-                    onCheckedChange={() => toggleFilter(setSelectedNetwork, net)}
-                  />
-                  <Label htmlFor={`net-${net}`} className="text-sm font-medium leading-none cursor-pointer">
-                    {net}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-
-      <Button 
-        variant="outline" 
-        className="w-full text-xs font-bold uppercase tracking-widest mt-4"
-        onClick={clearFilters}
-      >
-        Limpiar Filtros
-      </Button>
-    </div>
-  );
+  const commonFilterProps = {
+    brands,
+    rams,
+    networks,
+    priceRange,
+    setPriceRange,
+    selectedBrands,
+    selectedRam,
+    selectedNetwork,
+    toggleFilter,
+    setSelectedBrands,
+    setSelectedRam,
+    setSelectedNetwork,
+    clearFilters,
+  };
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -193,7 +267,7 @@ export default function Catalog() {
                 <Filter className="h-5 w-5 text-primary" />
                 <h2 className="font-bold font-headline text-xl">Filtros Avanzados</h2>
               </div>
-              <FilterContent />
+              <FilterContent {...commonFilterProps} prefix="desktop" />
             </div>
           </aside>
 
@@ -225,7 +299,7 @@ export default function Catalog() {
                       <SheetTitle className="text-2xl font-bold font-headline text-primary">Filtros</SheetTitle>
                       <SheetDescription>Ajusta las especificaciones técnicas.</SheetDescription>
                     </SheetHeader>
-                    <FilterContent />
+                    <FilterContent {...commonFilterProps} prefix="mobile" />
                   </SheetContent>
                 </Sheet>
 
@@ -306,8 +380,8 @@ export default function Catalog() {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-xl font-bold text-primary">${product.price}</span>
-                      <Button size="sm" className="bg-accent hover:bg-accent/90 text-white rounded-lg px-4">
-                        Detalles
+                      <Button size="sm" className="bg-accent hover:bg-accent/90 text-white rounded-lg px-4" asChild>
+                        <Link href={`/catalog/${product.id}`}>Detalles</Link>
                       </Button>
                     </div>
                   </CardContent>
