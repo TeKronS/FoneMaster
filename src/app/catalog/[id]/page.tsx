@@ -5,7 +5,7 @@ import { PRODUCTS, STORE_CONFIG } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, ShoppingCart, Shield, Truck, RotateCcw, Share2, Heart } from "lucide-react";
+import { ChevronLeft, ShoppingCart, Shield, Truck, RotateCcw, Share2, Heart, Cpu, Smartphone, Zap, Wifi, Battery } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
@@ -95,21 +95,44 @@ export default function ProductDetail() {
 
           <Separator className="mb-8" />
 
-          {/* Specifications */}
-          <div className="space-y-6">
-            <h3 className="font-bold text-xl font-headline">Especificaciones</h3>
-            <div className="grid grid-cols-2 gap-y-4">
-              {Object.entries(product.specs).map(([key, value]) => (
-                <div key={key}>
-                  <p className="text-xs text-muted-foreground uppercase font-bold mb-1">{key}</p>
-                  <p className="font-medium">{value}</p>
-                </div>
-              ))}
+          {/* Key Specifications Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8">
+            <div className="flex flex-col items-center p-4 bg-muted/30 rounded-2xl">
+              <Smartphone className="h-6 w-6 text-primary mb-2" />
+              <span className="text-[10px] uppercase font-bold text-muted-foreground">Pantalla</span>
+              <span className="font-bold text-sm">{product.specs.pantalla}"</span>
+            </div>
+            <div className="flex flex-col items-center p-4 bg-muted/30 rounded-2xl">
+              <Cpu className="h-6 w-6 text-primary mb-2" />
+              <span className="text-[10px] uppercase font-bold text-muted-foreground">RAM</span>
+              <span className="font-bold text-sm">{product.specs.ram}</span>
+            </div>
+            <div className="flex flex-col items-center p-4 bg-muted/30 rounded-2xl">
+              <Battery className="h-6 w-6 text-primary mb-2" />
+              <span className="text-[10px] uppercase font-bold text-muted-foreground">Batería</span>
+              <span className="font-bold text-sm text-center">{product.specs.bateria}</span>
+            </div>
+            <div className="flex flex-col items-center p-4 bg-muted/30 rounded-2xl">
+              <Zap className="h-6 w-6 text-primary mb-2" />
+              <span className="text-[10px] uppercase font-bold text-muted-foreground">Almacén</span>
+              <span className="font-bold text-sm">{product.specs.almacenamiento}</span>
+            </div>
+            <div className="flex flex-col items-center p-4 bg-muted/30 rounded-2xl">
+              <Wifi className="h-6 w-6 text-primary mb-2" />
+              <span className="text-[10px] uppercase font-bold text-muted-foreground">Red</span>
+              <span className="font-bold text-sm">{product.specs.red}</span>
+            </div>
+            <div className="flex flex-col items-center p-4 bg-muted/30 rounded-2xl">
+              <Cpu className="h-6 w-6 text-primary mb-2" />
+              <span className="text-[10px] uppercase font-bold text-muted-foreground">Procesador</span>
+              <span className="font-bold text-[10px] text-center line-clamp-1">{product.specs.procesador}</span>
             </div>
           </div>
 
+          <Separator className="mb-8" />
+
           {/* Value Props */}
-          <div className="mt-auto pt-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="mt-auto pt-4 grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="flex items-center space-x-3">
               <Truck className="h-5 w-5 text-accent" />
               <span className="text-xs font-medium">Envío Express Gratis</span>

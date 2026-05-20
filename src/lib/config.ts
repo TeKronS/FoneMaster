@@ -26,7 +26,14 @@ export interface Product {
   brand: string;
   price: number;
   description: string;
-  specs: Record<string, string>;
+  specs: {
+    pantalla: string;
+    procesador: string;
+    ram: string;
+    almacenamiento: string;
+    bateria: string;
+    red: string;
+  };
   category: string;
   image: string;
   bannerImage: string;
@@ -47,10 +54,12 @@ export const PRODUCTS: Product[] = [
     isFeatured: true,
     stock: 15,
     specs: {
-      pantalla: "6.8 pulgadas OLED",
-      procesador: "Quantum G1",
+      pantalla: "6.8",
+      procesador: "Quantum G1 (3.2 GHz)",
       ram: "12GB",
       almacenamiento: "256GB",
+      bateria: "5000 mAh",
+      red: "5G"
     },
   },
   {
@@ -65,10 +74,12 @@ export const PRODUCTS: Product[] = [
     isFeatured: true,
     stock: 8,
     specs: {
-      pantalla: "6.5 pulgadas AMOLED",
-      procesador: "Snapdragon Elite",
+      pantalla: "6.5",
+      procesador: "Snapdragon Elite (3.0 GHz)",
       ram: "16GB",
       almacenamiento: "512GB",
+      bateria: "4800 mAh",
+      red: "5G"
     },
   },
   {
@@ -83,10 +94,12 @@ export const PRODUCTS: Product[] = [
     isFeatured: true,
     stock: 5,
     specs: {
-      pantalla: "7.2 pulgadas Plegable",
-      procesador: "Aura V2",
+      pantalla: "7.2",
+      procesador: "Aura V2 (2.8 GHz)",
       ram: "12GB",
       almacenamiento: "256GB",
+      bateria: "4400 mAh",
+      red: "5G"
     },
   },
   {
@@ -101,10 +114,12 @@ export const PRODUCTS: Product[] = [
     isFeatured: false,
     stock: 25,
     specs: {
-      pantalla: "6.1 pulgadas LCD",
-      procesador: "Quantum G1 Lite",
+      pantalla: "6.1",
+      procesador: "Quantum G1 Lite (2.4 GHz)",
       ram: "8GB",
       almacenamiento: "128GB",
+      bateria: "4000 mAh",
+      red: "4G"
     },
   },
   {
@@ -119,10 +134,12 @@ export const PRODUCTS: Product[] = [
     isFeatured: false,
     stock: 12,
     specs: {
-      pantalla: "6.4 pulgadas OLED",
-      procesador: "Aura V1",
+      pantalla: "6.4",
+      procesador: "Aura V1 (2.6 GHz)",
       ram: "8GB",
       almacenamiento: "256GB",
+      bateria: "4500 mAh",
+      red: "5G"
     },
   },
   {
@@ -137,10 +154,12 @@ export const PRODUCTS: Product[] = [
     isFeatured: false,
     stock: 20,
     specs: {
-      pantalla: "6.0 pulgadas AMOLED",
-      procesador: "Snapdragon Air",
+      pantalla: "6.0",
+      procesador: "Snapdragon Air (2.2 GHz)",
       ram: "6GB",
       almacenamiento: "128GB",
+      bateria: "3800 mAh",
+      red: "4G"
     },
   },
 ];
