@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { STORE_CONFIG, PRODUCTS } from "@/lib/config";
-import { ChevronRight, ShieldCheck, Truck, Headphones, Smartphone, MapPin } from "lucide-react";
+import { ChevronRight, ShieldCheck, Truck, Headphones, Smartphone, MapPin, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   const featuredProducts = PRODUCTS.filter(p => p.isFeatured);
+  const saleProducts = PRODUCTS.filter(p => p.isOnSale).slice(0, 4);
 
   return (
     <div className="flex flex-col space-y-16 pb-16">
@@ -29,14 +30,21 @@ export default function Home() {
                   />
                 </div>
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-4">
-                  <span className="text-accent font-bold uppercase tracking-wider mb-2">Oferta Destacada</span>
+                  <span className="text-accent font-bold uppercase tracking-wider mb-2">
+                    {product.isOnSale ? "Oferta Especial" : "Oferta Destacada"}
+                  </span>
                   <h1 className="text-4xl md:text-6xl font-bold mb-4 font-headline">{product.name}</h1>
                   <p className="max-w-xl text-lg mb-8 opacity-90">{product.description}</p>
-                  <Link href={`/catalog/${product.id}`}>
-                    <Button size="lg" className="bg-accent hover:bg-accent/90 text-white border-none px-8 py-6 rounded-full text-lg shadow-lg transform transition hover:scale-105">
-                      Comprar ahora por ${product.price}
-                    </Button>
-                  </Link>
+                  <div className="flex items-center gap-4 flex-col sm:flex-row">
+                    <Link href={`/catalog/${product.id}`}>
+                      <Button size="lg" className="bg-accent hover:bg-accent/90 text-white border-none px-8 py-6 rounded-full text-lg shadow-lg transform transition hover:scale-105">
+                        Comprar ahora por ${product.price}
+                      </Button>
+                    </Link>
+                    {product.originalPrice && (
+                      <span className="text-white/60 line-through text-xl font-bold">Antes ${product.originalPrice}</span>
+                    )}
+                  </div>
                 </div>
               </CarouselItem>
             ))}
@@ -74,6 +82,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Super Ofertas Section */}
+      {saleProducts.length > 0 && (
+        <section className="container mx-auto px-4">
+          <div className="bg-red-500 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
+            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+              <div className="lg:w-1/3 text-center lg:text-left">
+                <div className="inline-flex items-center bg-white/20 px-4 py-1 rounded-full text-sm font-bold mb-4">
+                  <Tag className="h-4 w-4 mr-2" /> LIMITADO
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold font-headline mb-4">Súper Ofertas del Mes</h2>
+                <p className="text-lg opacity-90 mb-8">No te pierdas los mejores descuentos en la última tecnología móvil. Solo por tiempo limitado.</p>
+                <Link href="/catalog?onSale=true">
+                  <Button size="lg" className="bg-white text-red-500 hover:bg-white/90 rounded-full px-12 py-6 font-bold text-lg">
+                    Ver todas las ofertas
+                  </Button>
+                </Link>
+              </div>
+              <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                {saleProducts.map(product => (
+                  <Card key={product.id} className="bg-white/10 border-white/20 text-white backdrop-blur-md hover:bg-white/20 transition-all border-none">
+                    <CardContent className="p-6 flex items-center space-x-6">
+                      <div className="relative h-20 w-20 bg-white rounded-xl overflow-hidden shrink-0">
+                        <Image src={product.image} alt={product.name} fill className="object-contain p-2" />
+                      </div>
+                      <div className="flex-grow">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">{product.brand}</p>
+                        <h4 className="font-bold text-lg leading-tight mb-1">{product.name}</h4>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-bold text-xl">${product.price}</span>
+                          <span className="text-xs line-through text-white/50">${product.originalPrice}</span>
+                        </div>
+                      </div>
+                      <Link href={`/catalog/${product.id}`}>
+                        <Button size="icon" variant="ghost" className="rounded-full hover:bg-white/20 text-white">
+                          <ChevronRight className="h-6 w-6" />
+                        </Button>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+            {/* Decoration */}
+            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="absolute -top-24 -left-24 w-64 h-64 bg-black/10 rounded-full blur-3xl"></div>
+          </div>
+        </section>
+      )}
+
       {/* Featured Products Grid */}
       <section className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
@@ -94,7 +151,12 @@ export default function Home() {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     data-ai-hint="phone smartphone"
                   />
-                  {product.isFeatured && (
+                  {product.isOnSale && (
+                    <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                      OFERTA
+                    </div>
+                  )}
+                  {product.isFeatured && !product.isOnSale && (
                     <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
                       HOT
                     </div>
@@ -104,7 +166,12 @@ export default function Home() {
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">{product.brand}</p>
                   <h3 className="text-xl font-bold mb-2">{product.name}</h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-primary">${product.price}</span>
+                    <div className="flex flex-col">
+                      <span className="text-2xl font-bold text-primary">${product.price}</span>
+                      {product.originalPrice && (
+                        <span className="text-sm text-muted-foreground line-through">${product.originalPrice}</span>
+                      )}
+                    </div>
                     <Link href={`/catalog/${product.id}`}>
                       <Button variant="outline" size="sm" className="rounded-full border-primary text-primary hover:bg-primary hover:text-white transition-colors">
                         Detalles

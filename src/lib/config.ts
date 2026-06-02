@@ -1,7 +1,7 @@
 export const STORE_CONFIG = {
-  name: "CommerceLink Pro",
+  name: "FoneMaster",
   description: "Tu tienda integral para lo último en tecnología móvil.",
-  logo: "CommerceLink",
+  logo: "FoneMaster",
   contact: {
     email: "soporte@commercelink.pro",
     phone: "+1 (555) 000-1234",
@@ -25,6 +25,8 @@ export interface Product {
   name: string;
   brand: string;
   price: number;
+  originalPrice?: number;
+  isOnSale?: boolean;
   description: string;
   specs: {
     pantalla: string;
@@ -46,7 +48,9 @@ export const PRODUCTS: Product[] = [
     id: "1",
     name: "Nebula X1",
     brand: "Nebula",
-    price: 999,
+    price: 899,
+    originalPrice: 999,
+    isOnSale: true,
     description: "El buque insignia definitivo con una cámara de 200MP y una duración de batería revolucionaria.",
     category: "Smartphones",
     image: "https://picsum.photos/seed/phone1/600/600",
@@ -86,7 +90,9 @@ export const PRODUCTS: Product[] = [
     id: "3",
     name: "Vortex Flip",
     brand: "Vortex",
-    price: 1199,
+    price: 999,
+    originalPrice: 1199,
+    isOnSale: true,
     description: "El futuro es plegable. Experimenta la potencia más compacta jamás construida.",
     category: "Smartphones",
     image: "https://picsum.photos/seed/phone3/600/600",
@@ -126,7 +132,9 @@ export const PRODUCTS: Product[] = [
     id: "5",
     name: "Aura 5G",
     brand: "Aura",
-    price: 699,
+    price: 599,
+    originalPrice: 699,
+    isOnSale: true,
     description: "Conectividad ultrarrápida con una estética minimalista y elegante.",
     category: "Smartphones",
     image: "https://picsum.photos/seed/phone5/600/600",
@@ -206,7 +214,9 @@ export const PRODUCTS: Product[] = [
     id: "9",
     name: "Nova S22",
     brand: "Nova",
-    price: 449,
+    price: 399,
+    originalPrice: 449,
+    isOnSale: true,
     description: "Equilibrio perfecto entre precio y rendimiento. La mejor opción para estudiantes.",
     category: "Smartphones",
     image: "https://picsum.photos/seed/phone9/600/600",
@@ -246,7 +256,9 @@ export const PRODUCTS: Product[] = [
     id: "11",
     name: "Nebula Ultra",
     brand: "Nebula",
-    price: 1499,
+    price: 1349,
+    originalPrice: 1499,
+    isOnSale: true,
     description: "Liderando la industria con zoom óptico de 100x y pantalla de 144Hz.",
     category: "Smartphones",
     image: "https://picsum.photos/seed/phone11/600/600",
@@ -266,7 +278,9 @@ export const PRODUCTS: Product[] = [
     id: "12",
     name: "Zenith Fold 2",
     brand: "Zenith",
-    price: 1799,
+    price: 1699,
+    originalPrice: 1799,
+    isOnSale: true,
     description: "Se despliega para convertirse en tablet. El pináculo de la ingeniería móvil.",
     category: "Smartphones",
     image: "https://picsum.photos/seed/phone12/600/600",

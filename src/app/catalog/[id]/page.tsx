@@ -5,7 +5,7 @@ import { PRODUCTS, STORE_CONFIG } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, ShoppingCart, Shield, Truck, RotateCcw, Share2, Heart, Cpu, Smartphone, Zap, Wifi, Battery } from "lucide-react";
+import { ChevronLeft, ShoppingCart, Shield, Truck, RotateCcw, Share2, Heart, Cpu, Smartphone, Zap, Wifi, Battery, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
@@ -31,6 +31,9 @@ export default function ProductDetail() {
     });
   };
 
+  const discountAmount = product.originalPrice ? product.originalPrice - product.price : 0;
+  const discountPercentage = product.originalPrice ? Math.round((discountAmount / product.originalPrice) * 100) : 0;
+
   return (
     <div className="container mx-auto px-4 py-12">
       <Link href="/catalog" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8">
@@ -48,9 +51,16 @@ export default function ProductDetail() {
               className="object-contain p-8"
               priority
             />
-            {product.isFeatured && (
-              <Badge className="absolute top-6 left-6 bg-accent text-white">Destacado</Badge>
-            )}
+            <div className="absolute top-6 left-6 flex flex-col gap-2">
+              {product.isFeatured && (
+                <Badge className="bg-primary text-white border-none">Destacado</Badge>
+              )}
+              {product.isOnSale && (
+                <Badge className="bg-red-500 text-white border-none flex items-center">
+                  <Tag className="h-3 w-3 mr-1" /> -{discountPercentage}% OFERTA
+                </Badge>
+              )}
+            </div>
           </div>
           <div className="grid grid-cols-4 gap-4">
             {[1, 2, 3, 4].map((i) => (
@@ -66,10 +76,18 @@ export default function ProductDetail() {
           <div className="mb-6">
             <p className="text-primary font-bold uppercase tracking-widest text-sm mb-2">{product.brand}</p>
             <h1 className="text-4xl font-bold font-headline mb-4">{product.name}</h1>
-            <div className="flex items-center space-x-4 mb-6">
-              <span className="text-3xl font-bold text-primary">${product.price}</span>
+            <div className="flex items-center space-x-4 mb-2">
+              <span className="text-4xl font-bold text-primary">${product.price}</span>
+              {product.originalPrice && (
+                <span className="text-xl text-muted-foreground line-through">${product.originalPrice}</span>
+              )}
+              {product.isOnSale && (
+                <span className="text-green-600 font-bold text-sm bg-green-50 px-2 py-1 rounded">Ahorras ${discountAmount}</span>
+              )}
+            </div>
+            <div className="mb-6">
               {product.stock > 0 ? (
-                <Badge variant="secondary" className="bg-green-100 text-green-700 hover:bg-green-100 border-none">En Stock</Badge>
+                <Badge variant="secondary" className="bg-green-100 text-green-700 hover:bg-green-100 border-none">En Stock ({product.stock} unidades)</Badge>
               ) : (
                 <Badge variant="destructive">Agotado</Badge>
               )}

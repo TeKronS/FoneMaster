@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useMemo, useEffect } from "react";
@@ -6,7 +5,7 @@ import { PRODUCTS } from "@/lib/config";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Search, Filter, SlidersHorizontal, X, Cpu, Smartphone, Zap, Wifi } from "lucide-react";
+import { Search, Filter, SlidersHorizontal, X, Cpu, Smartphone, Zap, Wifi, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Slider } from "@/components/ui/slider";
@@ -45,6 +44,8 @@ interface FilterContentProps {
   selectedBrands: string[];
   selectedRam: string[];
   selectedNetwork: string[];
+  onlyOnSale: boolean;
+  setOnlyOnSale: (value: boolean) => void;
   toggleFilter: (setter: React.Dispatch<React.SetStateAction<string[]>>, value: string) => void;
   setSelectedBrands: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedRam: React.Dispatch<React.SetStateAction<string[]>>;
@@ -62,6 +63,8 @@ function FilterContent({
   selectedBrands,
   selectedRam,
   selectedNetwork,
+  onlyOnSale,
+  setOnlyOnSale,
   toggleFilter,
   setSelectedBrands,
   setSelectedRam,
@@ -71,14 +74,25 @@ function FilterContent({
 }: FilterContentProps) {
   return (
     <div className="space-y-6">
+      <div className="flex items-center space-x-2 pb-2">
+        <Checkbox 
+          id={`${prefix}-on-sale`} 
+          checked={onlyOnSale}
+          onCheckedChange={(checked) => setOnlyOnSale(!!checked)}
+        />
+        <Label htmlFor={`${prefix}-on-sale`} className="text-sm font-bold flex items-center text-primary">
+          <Tag className="h-4 w-4 mr-2" /> Solo en Oferta
+        </Label>
+      </div>
+
       <div>
         <div className="flex justify-between items-center mb-4">
           <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground">Precio</h3>
           <span className="text-xs font-bold text-primary">${priceRange[0]} - ${priceRange[1]}</span>
         </div>
         <Slider
-          defaultValue={[0, 1500]}
-          max={1500}
+          defaultValue={[0, 2000]}
+          max={2000}
           step={50}
           value={priceRange}
           onValueChange={setPriceRange}
@@ -177,7 +191,8 @@ export default function Catalog() {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [selectedRam, setSelectedRam] = useState<string[]>([]);
   const [selectedNetwork, setSelectedNetwork] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState([0, 1500]);
+  const [onlyOnSale, setOnlyOnSale] = useState(false);
+  const [priceRange, setPriceRange] = useState([0, 2000]);
   const [sortOrder, setSortOrder] = useState("newest");
 
   useEffect(() => {
@@ -196,14 +211,15 @@ export default function Catalog() {
       const matchesRam = selectedRam.length === 0 || selectedRam.includes(product.specs.ram);
       const matchesNetwork = selectedNetwork.length === 0 || selectedNetwork.includes(product.specs.red);
       const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+      const matchesSale = !onlyOnSale || product.isOnSale;
       
-      return matchesSearch && matchesBrand && matchesRam && matchesNetwork && matchesPrice;
+      return matchesSearch && matchesBrand && matchesRam && matchesNetwork && matchesPrice && matchesSale;
     }).sort((a, b) => {
       if (sortOrder === "price-low") return a.price - b.price;
       if (sortOrder === "price-high") return b.price - a.price;
       return 0;
     });
-  }, [searchTerm, selectedBrands, selectedRam, selectedNetwork, priceRange, sortOrder]);
+  }, [searchTerm, selectedBrands, selectedRam, selectedNetwork, priceRange, sortOrder, onlyOnSale]);
 
   const toggleFilter = (setter: React.Dispatch<React.SetStateAction<string[]>>, value: string) => {
     setter(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
@@ -214,7 +230,8 @@ export default function Catalog() {
     setSelectedBrands([]);
     setSelectedRam([]);
     setSelectedNetwork([]);
-    setPriceRange([0, 1500]);
+    setOnlyOnSale(false);
+    setPriceRange([0, 2000]);
   };
 
   if (!mounted) {
@@ -244,6 +261,8 @@ export default function Catalog() {
     selectedBrands,
     selectedRam,
     selectedNetwork,
+    onlyOnSale,
+    setOnlyOnSale,
     toggleFilter,
     setSelectedBrands,
     setSelectedRam,
@@ -326,9 +345,14 @@ export default function Catalog() {
             </div>
 
             {/* Chips de Filtros Activos */}
-            {(selectedBrands.length > 0 || selectedRam.length > 0 || selectedNetwork.length > 0) && (
+            {(selectedBrands.length > 0 || selectedRam.length > 0 || selectedNetwork.length > 0 || onlyOnSale) && (
               <div className="flex flex-wrap items-center gap-2">
                 <p className="text-sm text-muted-foreground mr-2">Filtros:</p>
+                {onlyOnSale && (
+                  <Button variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase bg-primary text-white hover:bg-primary/90" onClick={() => setOnlyOnSale(false)}>
+                    Solo Ofertas <X className="ml-1 h-3 w-3" />
+                  </Button>
+                )}
                 {selectedBrands.map(brand => (
                   <Button key={brand} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedBrands, brand)}>
                     {brand} <X className="ml-1 h-3 w-3" />
@@ -350,7 +374,12 @@ export default function Catalog() {
             {/* Grid de Productos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
-                <Card key={product.id} className="group overflow-hidden border-none bg-white hover:shadow-xl transition-all duration-300 rounded-2xl">
+                <Card key={product.id} className="group overflow-hidden border-none bg-white hover:shadow-xl transition-all duration-300 rounded-2xl relative">
+                  {product.isOnSale && (
+                    <div className="absolute top-4 left-4 z-10 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg">
+                      OFERTA
+                    </div>
+                  )}
                   <Link href={`/catalog/${product.id}`}>
                     <div className="relative aspect-square overflow-hidden bg-muted">
                       <Image
@@ -379,7 +408,12 @@ export default function Catalog() {
                       {product.specs.procesador} • {product.specs.pantalla}"
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-bold text-primary">${product.price}</span>
+                      <div className="flex flex-col">
+                        <span className="text-xl font-bold text-primary">${product.price}</span>
+                        {product.originalPrice && (
+                          <span className="text-xs text-muted-foreground line-through">${product.originalPrice}</span>
+                        )}
+                      </div>
                       <Button size="sm" className="bg-accent hover:bg-accent/90 text-white rounded-lg px-4" asChild>
                         <Link href={`/catalog/${product.id}`}>Detalles</Link>
                       </Button>
