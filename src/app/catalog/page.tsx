@@ -274,8 +274,8 @@ export default function Catalog() {
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-col space-y-8">
         <div>
-          <h1 className="text-4xl font-bold font-headline mb-2 text-primary">Catálogo Técnico</h1>
-          <p className="text-muted-foreground">Explora lo último en tecnología móvil con especificaciones detalladas.</p>
+          <h1 className="text-2xl font-bold font-headline mb-1">Explora todos nuestros dispositivos</h1>
+          <p className="text-sm text-muted-foreground">Encuentra el smartphone perfecto para tus necesidades técnicas.</p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
