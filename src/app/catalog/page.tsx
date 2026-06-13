@@ -271,7 +271,7 @@ export default function Catalog() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-4">
       <div className="flex flex-col space-y-8">
         <div>
           <h1 className="text-2xl font-bold font-headline mb-1">Explora todos nuestros dispositivos</h1>
@@ -292,87 +292,88 @@ export default function Catalog() {
 
           {/* Área Principal */}
           <div className="flex-grow space-y-6">
-            {/* Barra de Herramientas Superior */}
-            <div className="flex flex-col md:flex-row gap-4 items-center">
-              <div className="relative flex-grow w-full">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Buscar por modelo, marca o característica..."
-                  className="pl-10 h-12 bg-white rounded-xl border-none shadow-sm"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-              
-              <div className="flex gap-2 w-full md:w-auto">
-                {/* Botón de Filtros para Móvil */}
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" className="lg:hidden h-12 bg-white rounded-xl flex-grow md:flex-none">
-                      <Filter className="mr-2 h-4 w-4" />
-                      Filtros
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent side="left" className="w-[300px] overflow-y-auto">
-                    <SheetHeader className="mb-8 border-b pb-4">
-                      <SheetTitle className="text-2xl font-bold font-headline text-primary">Filtros</SheetTitle>
-                      <SheetDescription>Ajusta las especificaciones técnicas.</SheetDescription>
-                    </SheetHeader>
-                    <FilterContent {...commonFilterProps} prefix="mobile" />
-                  </SheetContent>
-                </Sheet>
+            {/* Barra de Herramientas Superior Sticky */}
+            <div className="sticky top-16 z-30 bg-background/95 backdrop-blur-sm py-4 -mx-2 px-2">
+              <div className="flex flex-col md:flex-row gap-4 items-center">
+                <div className="relative flex-grow w-full">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Buscar por modelo, marca o característica..."
+                    className="pl-10 h-12 bg-white rounded-xl border-none shadow-sm"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+                
+                <div className="flex gap-2 w-full md:w-auto">
+                  {/* Botón de Filtros para Móvil */}
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <Button variant="outline" className="lg:hidden h-12 bg-white rounded-xl flex-grow md:flex-none">
+                        <Filter className="mr-2 h-4 w-4" />
+                        Filtros
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="w-[300px] overflow-y-auto">
+                      <SheetHeader className="mb-8 border-b pb-4">
+                        <SheetTitle className="text-2xl font-bold font-headline text-primary">Filtros</SheetTitle>
+                        <SheetDescription>Ajusta las especificaciones técnicas para encontrar tu dispositivo ideal.</SheetDescription>
+                      </SheetHeader>
+                      <FilterContent {...commonFilterProps} prefix="mobile" />
+                    </SheetContent>
+                  </Sheet>
 
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="h-12 bg-white rounded-xl min-w-[140px] flex justify-between shadow-sm border-none">
-                      <span className="text-sm">
-                        {sortOrder === "newest" ? "Novedades" : sortOrder === "price-low" ? "Precio: Bajo" : "Precio: Alto"}
-                      </span>
-                      <SlidersHorizontal className="ml-2 h-4 w-4 opacity-50" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56 rounded-xl">
-                    <DropdownMenuLabel>Ordenar Por</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuRadioGroup value={sortOrder} onValueChange={setSortOrder}>
-                      <DropdownMenuRadioItem value="newest">Más recientes</DropdownMenuRadioItem>
-                      <DropdownMenuRadioItem value="price-low">Precio: Menor a Mayor</DropdownMenuRadioItem>
-                      <DropdownMenuRadioItem value="price-high">Precio: Mayor a Menor</DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" className="h-12 bg-white rounded-xl min-w-[140px] flex justify-between shadow-sm border-none">
+                        <span className="text-sm">
+                          {sortOrder === "newest" ? "Novedades" : sortOrder === "price-low" ? "Precio: Bajo" : "Precio: Alto"}
+                        </span>
+                        <SlidersHorizontal className="ml-2 h-4 w-4 opacity-50" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56 rounded-xl">
+                      <DropdownMenuLabel>Ordenar Por</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuRadioGroup value={sortOrder} onValueChange={setSortOrder}>
+                        <DropdownMenuRadioItem value="newest">Más recientes</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="price-low">Precio: Menor a Mayor</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="price-high">Precio: Mayor a Menor</DropdownMenuRadioGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
               </div>
+
+              {/* Chips de Filtros Activos (ahora parte del área sticky) */}
+              {(selectedBrands.length > 0 || selectedRam.length > 0 || selectedNetwork.length > 0 || onlyOnSale) && (
+                <div className="flex flex-wrap items-center gap-2 mt-4">
+                  <p className="text-sm text-muted-foreground mr-2">Filtros:</p>
+                  {onlyOnSale && (
+                    <Button variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase bg-primary text-white hover:bg-primary/90" onClick={() => setOnlyOnSale(false)}>
+                      Solo Ofertas <X className="ml-1 h-3 w-3" />
+                    </Button>
+                  )}
+                  {selectedBrands.map(brand => (
+                    <Button key={brand} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedBrands, brand)}>
+                      {brand} <X className="ml-1 h-3 w-3" />
+                    </Button>
+                  ))}
+                  {selectedRam.map(ram => (
+                    <Button key={ram} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedRam, ram)}>
+                      RAM: {ram} <X className="ml-1 h-3 w-3" />
+                    </Button>
+                  ))}
+                  {selectedNetwork.map(net => (
+                    <Button key={net} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedNetwork, net)}>
+                      Red: {net} <X className="ml-1 h-3 w-3" />
+                    </Button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Chips de Filtros Activos */}
-            {(selectedBrands.length > 0 || selectedRam.length > 0 || selectedNetwork.length > 0 || onlyOnSale) && (
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="text-sm text-muted-foreground mr-2">Filtros:</p>
-                {onlyOnSale && (
-                  <Button variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase bg-primary text-white hover:bg-primary/90" onClick={() => setOnlyOnSale(false)}>
-                    Solo Ofertas <X className="ml-1 h-3 w-3" />
-                  </Button>
-                )}
-                {selectedBrands.map(brand => (
-                  <Button key={brand} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedBrands, brand)}>
-                    {brand} <X className="ml-1 h-3 w-3" />
-                  </Button>
-                ))}
-                {selectedRam.map(ram => (
-                  <Button key={ram} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedRam, ram)}>
-                    RAM: {ram} <X className="ml-1 h-3 w-3" />
-                  </Button>
-                ))}
-                {selectedNetwork.map(net => (
-                  <Button key={net} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedNetwork, net)}>
-                    Red: {net} <X className="ml-1 h-3 w-3" />
-                  </Button>
-                ))}
-              </div>
-            )}
-
             {/* Grid de Productos */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 pt-4">
               {filteredProducts.map((product) => (
                 <Card key={product.id} className="group overflow-hidden border-none bg-white hover:shadow-xl transition-all duration-300 rounded-2xl relative">
                   {product.isOnSale && (

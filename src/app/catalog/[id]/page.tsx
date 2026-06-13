@@ -35,7 +35,7 @@ export default function ProductDetail() {
   const discountPercentage = product.originalPrice ? Math.round((discountAmount / product.originalPrice) * 100) : 0;
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-4">
       <Link href="/catalog" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8">
         <ChevronLeft className="h-4 w-4 mr-1" /> Volver al Catálogo
       </Link>

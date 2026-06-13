@@ -5,7 +5,7 @@ import { ShoppingCart, User, Menu, X, Search } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { STORE_CONFIG } from "@/lib/config";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +56,11 @@ export function Navbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <nav className="flex flex-col space-y-4 mt-8">
+              <SheetHeader className="text-left mb-6">
+                <SheetTitle className="text-2xl font-bold font-headline text-primary">{STORE_CONFIG.logo}</SheetTitle>
+                <SheetDescription>Navega por nuestra tienda y encuentra la mejor tecnología.</SheetDescription>
+              </SheetHeader>
+              <nav className="flex flex-col space-y-4">
                 <Link href="/" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Inicio</Link>
                 <Link href="/catalog" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Catálogo</Link>
                 <Link href="/about" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Nosotros</Link>
