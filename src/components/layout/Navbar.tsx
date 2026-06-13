@@ -44,11 +44,13 @@ export function Navbar() {
           </Link>
           
           {/* Profile button - Hidden on mobile, visible on desktop */}
-          <Link href="/profile" className="hidden md:block">
-            <Button variant="ghost" size="icon" className="text-muted-foreground">
-              <User className="h-5 w-5" />
-            </Button>
-          </Link>
+          <div className="hidden md:block">
+            <Link href="/profile">
+              <Button variant="ghost" size="icon" className="text-muted-foreground">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
 
           {/* Mobile Menu Toggle */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
