@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import { ShoppingCart, User, Menu, X, Search } from "lucide-react";
+import { ShoppingCart, User, Menu, Search } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { STORE_CONFIG } from "@/lib/config";
@@ -65,9 +65,8 @@ export function Navbar() {
                 <Link href="/catalog" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Catálogo</Link>
                 <Link href="/about" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Nosotros</Link>
                 <Link href="/contact" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Contacto</Link>
-                <hr />
-                <Link href="/profile" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Mi Perfil</Link>
-                <Link href="/login" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary text-primary">Iniciar Sesión / Registro</Link>
+                <hr className="my-2" />
+                <Link href="/login" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary text-primary font-bold">Iniciar Sesión / Registro</Link>
               </nav>
             </SheetContent>
           </Sheet>
