@@ -29,27 +29,28 @@ export function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center space-x-4">
-          <Link href="/catalog?search=true">
-            <Button variant="ghost" size="icon" className="text-muted-foreground">
+          <Button variant="ghost" size="icon" className="text-muted-foreground" asChild>
+            <Link href="/catalog?search=true">
               <Search className="h-5 w-5" />
-            </Button>
-          </Link>
-          <Link href="/cart">
-            <Button variant="ghost" size="icon" className="relative text-muted-foreground">
+            </Link>
+          </Button>
+          
+          <Button variant="ghost" size="icon" className="relative text-muted-foreground" asChild>
+            <Link href="/cart">
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-white">
                 0
               </span>
-            </Button>
-          </Link>
+            </Link>
+          </Button>
           
           {/* Profile button - Hidden on mobile, visible on desktop */}
           <div className="hidden md:block">
-            <Link href="/profile">
-              <Button variant="ghost" size="icon" className="text-muted-foreground">
+            <Button variant="ghost" size="icon" className="text-muted-foreground" asChild>
+              <Link href="/profile">
                 <User className="h-5 w-5" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Toggle */}
