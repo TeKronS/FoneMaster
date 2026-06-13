@@ -274,7 +274,7 @@ export default function Catalog() {
     <div className="container mx-auto px-4 py-4">
       <div className="flex flex-col space-y-8">
         <div>
-          <h1 className="text-2xl font-bold font-headline mb-1">Explora todos nuestros dispositivos</h1>
+          <h1 className="text-2xl font-bold font-headline mb-1 text-foreground/80">Explora todos nuestros dispositivos</h1>
           <p className="text-sm text-muted-foreground">Encuentra el smartphone perfecto para tus necesidades técnicas.</p>
         </div>
 
@@ -338,13 +338,14 @@ export default function Catalog() {
                       <DropdownMenuRadioGroup value={sortOrder} onValueChange={setSortOrder}>
                         <DropdownMenuRadioItem value="newest">Más recientes</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="price-low">Precio: Menor a Mayor</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="price-high">Precio: Mayor a Menor</DropdownMenuRadioGroup>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                        <DropdownMenuRadioItem value="price-high">Precio: Mayor a Menor</DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               </div>
 
-              {/* Chips de Filtros Activos (ahora parte del área sticky) */}
+              {/* Chips de Filtros Activos */}
               {(selectedBrands.length > 0 || selectedRam.length > 0 || selectedNetwork.length > 0 || onlyOnSale) && (
                 <div className="flex flex-wrap items-center gap-2 mt-4">
                   <p className="text-sm text-muted-foreground mr-2">Filtros:</p>
