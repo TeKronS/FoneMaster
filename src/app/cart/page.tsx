@@ -64,15 +64,15 @@ export default function Cart() {
             <div className="divide-y">
               {cartItems.map((item) => (
                 <div key={item.id} className="grid grid-cols-1 md:grid-cols-6 p-6 items-center gap-6">
-                  <div className="col-span-3 flex items-center space-x-6">
-                    <div className="relative h-24 w-24 bg-muted rounded-xl shrink-0 overflow-hidden border">
+                  <Link href={`/catalog/${item.id}`} className="col-span-3 flex items-center space-x-6 group">
+                    <div className="relative h-24 w-24 bg-muted rounded-xl shrink-0 overflow-hidden border group-hover:border-primary transition-colors">
                       <Image src={item.image} alt={item.name} fill className="object-contain p-2" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg">{item.name}</h3>
+                      <h3 className="font-bold text-lg group-hover:text-primary transition-colors">{item.name}</h3>
                       <p className="text-sm text-muted-foreground uppercase">{item.brand}</p>
                     </div>
-                  </div>
+                  </Link>
                   
                   <div className="flex justify-center">
                     <div className="flex items-center space-x-1 border rounded-lg p-1 bg-muted/10">
