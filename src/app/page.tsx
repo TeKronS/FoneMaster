@@ -101,26 +101,24 @@ export default function Home() {
               </div>
               <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                 {saleProducts.map(product => (
-                  <Card key={product.id} className="bg-white/10 border-white/20 text-white backdrop-blur-md hover:bg-white/20 transition-all border-none">
-                    <CardContent className="p-6 flex items-center space-x-6">
-                      <div className="relative h-20 w-20 bg-white rounded-xl overflow-hidden shrink-0">
-                        <Image src={product.image} alt={product.name} fill className="object-contain p-2" />
-                      </div>
-                      <div className="flex-grow">
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">{product.brand}</p>
-                        <h4 className="font-bold text-lg leading-tight mb-1">{product.name}</h4>
-                        <div className="flex items-center space-x-2">
-                          <span className="font-bold text-xl">${product.price}</span>
-                          <span className="text-xs line-through text-white/50">${product.originalPrice}</span>
+                  <Link key={product.id} href={`/catalog/${product.id}`} className="block group">
+                    <Card className="bg-white/10 border-white/20 text-white backdrop-blur-md hover:bg-white/20 transition-all border-none cursor-pointer h-full">
+                      <CardContent className="p-6 flex items-center space-x-6">
+                        <div className="relative h-20 w-20 bg-white rounded-xl overflow-hidden shrink-0">
+                          <Image src={product.image} alt={product.name} fill className="object-contain p-2" />
                         </div>
-                      </div>
-                      <Link href={`/catalog/${product.id}`}>
-                        <Button size="icon" variant="ghost" className="rounded-full hover:bg-white/20 text-white">
-                          <ChevronRight className="h-6 w-6" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
+                        <div className="flex-grow">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">{product.brand}</p>
+                          <h4 className="font-bold text-lg leading-tight mb-1">{product.name}</h4>
+                          <div className="flex items-center space-x-2">
+                            <span className="font-bold text-xl">${product.price}</span>
+                            <span className="text-xs line-through text-white/50">${product.originalPrice}</span>
+                          </div>
+                        </div>
+                        <ChevronRight className="h-6 w-6 text-white/40 group-hover:text-white transition-colors shrink-0" />
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>
