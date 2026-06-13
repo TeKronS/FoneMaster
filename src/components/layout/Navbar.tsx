@@ -42,7 +42,9 @@ export function Navbar() {
               </span>
             </Button>
           </Link>
-          <Link href="/profile">
+          
+          {/* Profile button - Hidden on mobile, visible on desktop */}
+          <Link href="/profile" className="hidden md:block">
             <Button variant="ghost" size="icon" className="text-muted-foreground">
               <User className="h-5 w-5" />
             </Button>
@@ -65,8 +67,18 @@ export function Navbar() {
                 <Link href="/catalog" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Catálogo</Link>
                 <Link href="/about" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Nosotros</Link>
                 <Link href="/contact" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary">Contacto</Link>
+                
                 <hr className="my-2" />
-                <Link href="/login" onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary text-primary font-bold">Iniciar Sesión / Registro</Link>
+                
+                {/* Profile link added to mobile menu */}
+                <Link 
+                  href="/profile" 
+                  onClick={() => setIsOpen(false)} 
+                  className="flex items-center space-x-2 text-lg font-medium hover:text-primary text-primary font-bold"
+                >
+                  <User className="h-5 w-5" />
+                  <span>Mi Cuenta / Iniciar Sesión</span>
+                </Link>
               </nav>
             </SheetContent>
           </Sheet>
