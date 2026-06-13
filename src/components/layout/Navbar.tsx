@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { ShoppingCart, User, Menu, Search } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { STORE_CONFIG } from "@/lib/config";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,36 +30,39 @@ export function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" className="text-muted-foreground" asChild>
-            <Link href="/catalog?search=true">
-              <Search className="h-5 w-5" />
-            </Link>
-          </Button>
+          <Link 
+            href="/catalog?search=true"
+            className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "text-muted-foreground")}
+          >
+            <Search className="h-5 w-5" />
+          </Link>
           
-          <Button variant="ghost" size="icon" className="relative text-muted-foreground" asChild>
-            <Link href="/cart">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-white">
-                0
-              </span>
-            </Link>
-          </Button>
+          <Link 
+            href="/cart"
+            className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "relative text-muted-foreground")}
+          >
+            <ShoppingCart className="h-5 w-5" />
+            <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-white">
+              0
+            </span>
+          </Link>
           
           {/* Profile button - Hidden on mobile, visible on desktop */}
           <div className="hidden md:block">
-            <Button variant="ghost" size="icon" className="text-muted-foreground" asChild>
-              <Link href="/profile">
-                <User className="h-5 w-5" />
-              </Link>
-            </Button>
+            <Link 
+              href="/profile"
+              className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "text-muted-foreground")}
+            >
+              <User className="h-5 w-5" />
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <button className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "md:hidden")}>
                 <Menu className="h-6 w-6" />
-              </Button>
+              </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <SheetHeader className="text-left mb-6">

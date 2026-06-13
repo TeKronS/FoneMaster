@@ -1,12 +1,13 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { STORE_CONFIG, PRODUCTS } from "@/lib/config";
 import { ChevronRight, ShieldCheck, Truck, Headphones, Smartphone, MapPin, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const featuredProducts = PRODUCTS.filter(p => p.isFeatured);
@@ -36,11 +37,15 @@ export default function Home() {
                   <h1 className="text-4xl md:text-6xl font-bold mb-4 font-headline">{product.name}</h1>
                   <p className="max-w-xl text-lg mb-8 opacity-90">{product.description}</p>
                   <div className="flex items-center gap-4 flex-col sm:flex-row">
-                    <Button size="lg" className="bg-accent hover:bg-accent/90 text-white border-none px-8 py-6 rounded-full text-lg shadow-lg transform transition hover:scale-105" asChild>
-                      <Link href={`/catalog/${product.id}`}>
-                        Comprar ahora por ${product.price}
-                      </Link>
-                    </Button>
+                    <Link 
+                      href={`/catalog/${product.id}`}
+                      className={cn(
+                        buttonVariants({ size: "lg" }),
+                        "bg-accent hover:bg-accent/90 text-white border-none px-8 py-6 rounded-full text-lg shadow-lg transform transition hover:scale-105"
+                      )}
+                    >
+                      Comprar ahora por ${product.price}
+                    </Link>
                     {product.originalPrice && (
                       <span className="text-white/60 line-through text-xl font-bold">Antes ${product.originalPrice}</span>
                     )}
@@ -93,11 +98,12 @@ export default function Home() {
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold font-headline mb-4">Súper Ofertas del Mes</h2>
                 <p className="text-lg opacity-90 mb-8">No te pierdas los mejores descuentos en la última tecnología móvil. Solo por tiempo limitado.</p>
-                <Button size="lg" className="bg-white text-red-500 hover:bg-white/90 rounded-full px-12 py-6 font-bold text-lg" asChild>
-                  <Link href="/catalog?onSale=true">
-                    Ver todas las ofertas
-                  </Link>
-                </Button>
+                <Link 
+                  href="/catalog?onSale=true"
+                  className={cn(buttonVariants({ size: "lg" }), "bg-white text-red-500 hover:bg-white/90 rounded-full px-12 py-6 font-bold text-lg")}
+                >
+                  Ver todas las ofertas
+                </Link>
               </div>
               <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                 {saleProducts.map(product => (
@@ -170,11 +176,12 @@ export default function Home() {
                         <span className="text-sm text-muted-foreground line-through">${product.originalPrice}</span>
                       )}
                     </div>
-                    <Button variant="outline" size="sm" className="rounded-full border-primary text-primary hover:bg-primary hover:text-white transition-colors" asChild>
-                      <Link href={`/catalog/${product.id}`}>
-                        Detalles
-                      </Link>
-                    </Button>
+                    <Link 
+                      href={`/catalog/${product.id}`}
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "rounded-full border-primary text-primary hover:bg-primary hover:text-white transition-colors")}
+                    >
+                      Detalles
+                    </Link>
                   </div>
                 </div>
               </CardContent>
@@ -191,11 +198,12 @@ export default function Home() {
             <p className="text-lg opacity-90 leading-relaxed">
               {STORE_CONFIG.about.mission}
             </p>
-            <Button className="bg-white text-primary hover:bg-white/90 rounded-full px-8 py-6 text-lg font-semibold mt-4" asChild>
-              <Link href="/about">
-                Conoce Nuestra Historia
-              </Link>
-            </Button>
+            <Link 
+              href="/about"
+              className={cn(buttonVariants(), "bg-white text-primary hover:bg-white/90 rounded-full px-8 py-6 text-lg font-semibold mt-4")}
+            >
+              Conoce Nuestra Historia
+            </Link>
           </div>
           <div className="md:w-1/2 relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl">
             <Image
@@ -239,11 +247,12 @@ export default function Home() {
               </div>
             </div>
 
-            <Button size="lg" variant="outline" className="w-full md:w-auto px-12 py-6 rounded-full font-bold" asChild>
-              <Link href="/contact">
-                Cómo llegar
-              </Link>
-            </Button>
+            <Link 
+              href="/contact"
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full md:w-auto px-12 py-6 rounded-full font-bold")}
+            >
+              Cómo llegar
+            </Link>
           </div>
           
           <div className="h-[450px] bg-muted rounded-2xl overflow-hidden relative border shadow-lg">

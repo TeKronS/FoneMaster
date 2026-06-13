@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { PRODUCTS } from "@/lib/config";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Search, Filter, SlidersHorizontal, X, Cpu, Smartphone, Zap, Wifi, Tag } from "lucide-react";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -174,13 +175,12 @@ function FilterContent({
         </AccordionItem>
       </Accordion>
 
-      <Button 
-        variant="outline" 
-        className="w-full text-xs font-bold uppercase tracking-widest mt-4"
+      <button 
+        className={cn(buttonVariants({ variant: "outline" }), "w-full text-xs font-bold uppercase tracking-widest mt-4")}
         onClick={clearFilters}
       >
         Limpiar Filtros
-      </Button>
+      </button>
     </div>
   );
 }
@@ -309,10 +309,10 @@ export default function Catalog() {
                   {/* Botón de Filtros para Móvil */}
                   <Sheet>
                     <SheetTrigger asChild>
-                      <Button variant="outline" className="lg:hidden h-12 bg-white rounded-xl flex-grow md:flex-none">
+                      <button className={cn(buttonVariants({ variant: "outline" }), "lg:hidden h-12 bg-white rounded-xl flex-grow md:flex-none")}>
                         <Filter className="mr-2 h-4 w-4" />
                         Filtros
-                      </Button>
+                      </button>
                     </SheetTrigger>
                     <SheetContent side="left" className="w-[300px] overflow-y-auto">
                       <SheetHeader className="mb-8 border-b pb-4">
@@ -325,12 +325,12 @@ export default function Catalog() {
 
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="h-12 bg-white rounded-xl min-w-[140px] flex justify-between shadow-sm border-none">
+                      <button className={cn(buttonVariants({ variant: "outline" }), "h-12 bg-white rounded-xl min-w-[140px] flex justify-between shadow-sm border-none")}>
                         <span className="text-sm">
                           {sortOrder === "newest" ? "Novedades" : sortOrder === "price-low" ? "Precio: Bajo" : "Precio: Alto"}
                         </span>
                         <SlidersHorizontal className="ml-2 h-4 w-4 opacity-50" />
-                      </Button>
+                      </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56 rounded-xl">
                       <DropdownMenuLabel>Ordenar Por</DropdownMenuLabel>
@@ -350,24 +350,24 @@ export default function Catalog() {
                 <div className="flex flex-wrap items-center gap-2 mt-4">
                   <p className="text-sm text-muted-foreground mr-2">Filtros:</p>
                   {onlyOnSale && (
-                    <Button variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase bg-primary text-white hover:bg-primary/90" onClick={() => setOnlyOnSale(false)}>
+                    <button className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "h-7 rounded-full text-[10px] font-bold uppercase bg-primary text-white hover:bg-primary/90")} onClick={() => setOnlyOnSale(false)}>
                       Solo Ofertas <X className="ml-1 h-3 w-3" />
-                    </Button>
+                    </button>
                   )}
                   {selectedBrands.map(brand => (
-                    <Button key={brand} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedBrands, brand)}>
+                    <button key={brand} className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "h-7 rounded-full text-[10px] font-bold uppercase")} onClick={() => toggleFilter(setSelectedBrands, brand)}>
                       {brand} <X className="ml-1 h-3 w-3" />
-                    </Button>
+                    </button>
                   ))}
                   {selectedRam.map(ram => (
-                    <Button key={ram} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedRam, ram)}>
+                    <button key={ram} className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "h-7 rounded-full text-[10px] font-bold uppercase")} onClick={() => toggleFilter(setSelectedRam, ram)}>
                       RAM: {ram} <X className="ml-1 h-3 w-3" />
-                    </Button>
+                    </button>
                   ))}
                   {selectedNetwork.map(net => (
-                    <Button key={net} variant="secondary" size="sm" className="h-7 rounded-full text-[10px] font-bold uppercase" onClick={() => toggleFilter(setSelectedNetwork, net)}>
+                    <button key={net} className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "h-7 rounded-full text-[10px] font-bold uppercase")} onClick={() => toggleFilter(setSelectedNetwork, net)}>
                       Red: {net} <X className="ml-1 h-3 w-3" />
-                    </Button>
+                    </button>
                   ))}
                 </div>
               )}
@@ -416,9 +416,12 @@ export default function Catalog() {
                           <span className="text-xs text-muted-foreground line-through">${product.originalPrice}</span>
                         )}
                       </div>
-                      <Button size="sm" className="bg-accent hover:bg-accent/90 text-white rounded-lg px-4" asChild>
-                        <Link href={`/catalog/${product.id}`}>Detalles</Link>
-                      </Button>
+                      <Link 
+                        href={`/catalog/${product.id}`}
+                        className={cn(buttonVariants({ size: "sm" }), "bg-accent hover:bg-accent/90 text-white rounded-lg px-4")}
+                      >
+                        Detalles
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
@@ -430,9 +433,9 @@ export default function Catalog() {
                 <Filter className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-20" />
                 <h3 className="text-xl font-semibold mb-2">No se encontraron productos</h3>
                 <p className="text-muted-foreground">Intenta ajustar tus criterios técnicos o limpiar los filtros.</p>
-                <Button variant="link" onClick={clearFilters} className="mt-4 text-primary font-bold">
+                <button variant="link" onClick={clearFilters} className="mt-4 text-primary font-bold">
                   Limpiar todos los filtros
-                </Button>
+                </button>
               </div>
             )}
           </div>
