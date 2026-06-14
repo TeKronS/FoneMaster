@@ -1,0 +1,37 @@
+
+{
+  "es": {
+    "titulo": "FoneMaster - Ecommerce de Smartphones de Vanguardia",
+    "descripcion": "Una plataforma de comercio electrónico moderna y optimizada para la venta de dispositivos móviles de alta gama. Incluye un catálogo dinámico con filtros técnicos avanzados (RAM, Red, Precio), sistema de ofertas en tiempo real, carrito de compras funcional y una experiencia de usuario (UX) fluida y totalmente responsiva.",
+    "tecnologias": [
+      "Next.js 15 (App Router)",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "ShadCN UI",
+      "Radix UI Primitives",
+      "Lucide Icons",
+      "Genkit (AI Integration)"
+    ],
+    "pistaImagen": "smartphone ecommerce storefront"
+  },
+  "en": {
+    "titulo": "FoneMaster - Cutting-Edge Smartphone Ecommerce",
+    "descripcion": "A modern and optimized e-commerce platform for high-end mobile devices. It features a dynamic catalog with advanced technical filters (RAM, Network, Price), a real-time sale system, a functional shopping cart, and a seamless, fully responsive user experience (UX).",
+    "tecnologias": [
+      "Next.js 15 (App Router)",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "ShadCN UI",
+      "Radix UI Primitives",
+      "Lucide Icons",
+      "Genkit (AI Integration)"
+    ],
+    "pistaImagen": "smartphone ecommerce storefront"
+  },
+  "enlaces": {
+    "github": "https://github.com/TU_USUARIO/fonemaster",
+    "demo": "https://fonemaster-store.vercel.app"
+  }
+}
