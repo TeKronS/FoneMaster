@@ -37,7 +37,7 @@
 ---
 
 ## 🚀 Enlaces / Links
-- **GitHub:** [https://github.com/TU_USUARIO/fonemaster](https://github.com/TU_USUARIO/fonemaster)
+- **GitHub:** [https://github.com/TeKronS/FoneMaster](https://github.com/TeKronS/FoneMaster)
 - **Live Demo:** [https://fonemaster-store.vercel.app](https://fonemaster-store.vercel.app)
 
 ---
