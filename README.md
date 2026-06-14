@@ -1,4 +1,3 @@
-
 # FoneMaster - Smartphone Ecommerce
 
 ## 🇪🇸 Descripción (Español)
@@ -38,7 +37,7 @@
 
 ## 🚀 Enlaces / Links
 - **GitHub:** [https://github.com/TeKronS/FoneMaster](https://github.com/TeKronS/FoneMaster)
-- **Live Demo:** [https://fonemaster-store.vercel.app](https://fonemaster-store.vercel.app)
+- **Live Demo:** [https://fone-master.vercel.app/](https://fone-master.vercel.app/)
 
 ---
 *Este proyecto fue desarrollado como una solución de ecommerce moderna centrada en el rendimiento y la experiencia de usuario.*

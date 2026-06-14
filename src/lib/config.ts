@@ -2,7 +2,7 @@ export const STORE_CONFIG = {
   name: "FoneMaster",
   description: "Descubre la última tecnología en smartphones. Nebula, Zenith, Vortex y más. Tu tienda de confianza con envío gratis y garantía asegurada.",
   logo: "FoneMaster",
-  url: "https://fonemaster-store.vercel.app", // URL base para metadatos
+  url: "https://fone-master.vercel.app", // URL base para metadatos
   contact: {
     email: "soporte@commercelink.pro",
     phone: "+1 (555) 000-1234",

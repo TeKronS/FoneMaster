@@ -1,4 +1,3 @@
-
 {
   "es": {
     "titulo": "FoneMaster - Ecommerce de Smartphones de Vanguardia",
@@ -32,6 +31,6 @@
   },
   "enlaces": {
     "github": "https://github.com/TeKronS/FoneMaster",
-    "demo": "https://fonemaster-store.vercel.app"
+    "demo": "https://fone-master.vercel.app/"
   }
 }
