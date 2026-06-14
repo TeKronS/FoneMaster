@@ -1,7 +1,8 @@
 export const STORE_CONFIG = {
   name: "FoneMaster",
-  description: "Tu tienda integral para lo último en tecnología móvil.",
+  description: "Descubre la última tecnología en smartphones. Nebula, Zenith, Vortex y más. Tu tienda de confianza con envío gratis y garantía asegurada.",
   logo: "FoneMaster",
+  url: "https://fonemaster-store.vercel.app", // URL base para metadatos
   contact: {
     email: "soporte@commercelink.pro",
     phone: "+1 (555) 000-1234",
@@ -12,6 +13,10 @@ export const STORE_CONFIG = {
     mission: "Empoderar a las personas a través de tecnología móvil de vanguardia que mejora la conectividad y la productividad en todo el mundo.",
     vision: "Ser la plataforma global líder en herramientas de comunicación accesibles e innovadoras que cierren la brecha digital.",
     history: "Fundada en 2024, CommerceLink Pro comenzó con un objetivo simple: hacer que la tecnología de alta gama sea accesible para todos con una experiencia de compra sin complicaciones.",
+  },
+  seo: {
+    keywords: ["smartphones", "celulares", "tecnología", "comprar teléfonos", "Nebula X1", "5G", "ofertas móviles"],
+    ogImage: "https://picsum.photos/seed/fonemaster-og/1200/630"
   },
   colors: {
     primary: "#345EBB",

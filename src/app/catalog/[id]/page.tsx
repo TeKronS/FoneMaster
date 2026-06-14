@@ -1,35 +1,47 @@
-"use client"
-
-import { useParams, useRouter } from "next/navigation";
-import { PRODUCTS, STORE_CONFIG } from "@/lib/config";
+import { PRODUCTS } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ShoppingCart, Shield, Truck, RotateCcw, Share2, Heart, Cpu, Smartphone, Zap, Wifi, Battery, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { toast } from "@/hooks/use-toast";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-export default function ProductDetail() {
-  const { id } = useParams();
-  const router = useRouter();
+interface Props {
+  params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const product = PRODUCTS.find((p) => p.id === id);
+
+  if (!product) return { title: "Producto no encontrado" };
+
+  return {
+    title: product.name,
+    description: product.description,
+    openGraph: {
+      title: `${product.name} | FoneMaster`,
+      description: product.description,
+      images: [{ url: product.image }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.name,
+      description: product.description,
+      images: [product.image],
+    },
+  };
+}
+
+export default async function ProductDetail({ params }: Props) {
+  const { id } = await params;
   const product = PRODUCTS.find(p => p.id === id);
 
   if (!product) {
-    return (
-      <div className="container mx-auto px-4 py-20 text-center">
-        <h1 className="text-2xl font-bold mb-4">Producto no encontrado</h1>
-        <Button onClick={() => router.push('/catalog')}>Volver al Catálogo</Button>
-      </div>
-    );
+    notFound();
   }
-
-  const handleAddToCart = () => {
-    toast({
-      title: "Añadido al carrito",
-      description: `${product.name} ha sido añadido a tu bolsa de compras.`,
-    });
-  };
 
   const discountAmount = product.originalPrice ? product.originalPrice - product.price : 0;
   const discountPercentage = product.originalPrice ? Math.round((discountAmount / product.originalPrice) * 100) : 0;
@@ -98,7 +110,7 @@ export default function ProductDetail() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <Button size="lg" className="flex-grow bg-primary hover:bg-primary/90 rounded-full h-14 text-lg font-bold" onClick={handleAddToCart}>
+            <Button size="lg" className="flex-grow bg-primary hover:bg-primary/90 rounded-full h-14 text-lg font-bold">
               <ShoppingCart className="h-5 w-5 mr-2" /> Añadir al Carrito
             </Button>
             <div className="flex gap-2">
